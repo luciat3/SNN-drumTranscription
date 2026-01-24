@@ -12,6 +12,7 @@ build/
 develop-eggs/
 dist/
 downloads/
+data/
 eggs/
 .eggs/
 lib/
@@ -138,6 +139,7 @@ celerybeat.pid
 .env
 .envrc
 .venv
+.venv-cnn
 env/
 venv/
 ENV/
