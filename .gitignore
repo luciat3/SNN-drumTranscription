@@ -12,7 +12,9 @@ build/
 develop-eggs/
 dist/
 downloads/
-data/
+data/raw/groove/
+data/processed/index.jsonl
+data/processed/splits.jsonl
 eggs/
 .eggs/
 lib/
