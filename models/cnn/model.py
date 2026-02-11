@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import torch
 import torch.nn as nn
 
@@ -7,9 +8,9 @@ Changes behaviour depending of train or evaluation, moves to device GPU/CPU
 etc.
 """
 class DrumCNN(nn.Module):
-    def __init__(self, num_classes: int = 8, dropout: float = 0.3):
+    def __init__(self, num_classes: int = 14, dropout: float = 0.3):
         """
-        :param num_classes: (8)
+        :param num_classes: (14)
         :param dropout: probability of randomly zeroing the input
         """
         # initializes nn.Module

@@ -1,10 +1,16 @@
 {
   "kick": [36],
-  "snare": [38, 40, 37], 
-  "hihat_closed": [42, 22, 44],
+  "xstick": [37],
+  "snare": [38, 40], 
+  "hihat_closed": [42, 22],
+  "hihat_pedal": [44],
   "hihat_open": [46, 26],
-  "tom": [48, 50],
-  "floor_tom": [43, 45, 47, 58],
-  "crash": [49, 52, 55, 57],
-  "ride": [51, 53, 59]
+  "tom": [45, 47, 48, 50],
+  "floor_tom": [43],
+  "vibraslap": [58],
+  "crash": [49, 57],
+  "ride_bow": [51, 59],
+  "ride_bell": [53],
+  "chinese_cymbal": [52],
+  "splash_cymbal": [55]
 }

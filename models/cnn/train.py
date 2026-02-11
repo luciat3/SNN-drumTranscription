@@ -67,7 +67,7 @@ def main():
     # Paths
     index_jsonl = "data/processed/index.jsonl"
     splits_json = "data/processed/splits.json"
-    out_dir = Path("models/cnn/runs/baseline")
+    out_dir = Path("models/cnn/runs/run1")
     out_dir.mkdir(parents=True, exist_ok=True)
     # save results
     metrics_path = out_dir / "metrics.jsonl"

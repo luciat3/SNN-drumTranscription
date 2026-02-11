@@ -34,7 +34,7 @@ class SpecConfig:
 
 
 # maped classes 
-CLASSES = ["kick", "snare", "hihat_closed", "hihat_open", "tom", "floor_tom", "crash", "ride"]
+CLASSES = ["kick", "xstick", "snare", "hihat_closed", "hihat_pedal", "hihat_open", "tom", "floor_tom", "vibraslap", "crash", "ride_bow", "ride_bell", "chinese_cymbal", "splash_cymbal"]
 CLASS_TO_IDX = {c: i for i, c in enumerate(CLASSES)}
 
 
@@ -188,7 +188,8 @@ class DrumOnsetWindowDataset(Dataset):
         start = self._choose_start(T, self.pos_frames[track_i])
         Xw = X[:, start : start + self.win_frames]  # (M, W)
         center = min(max(start + self.win_frames // 2, 0), T - 1)
-        yw = y_frames[center]  # (C,)
+        r = 3  
+        yw = y_frames[max(0, center-r) : min(T, center+r+1)].max(axis=0)  # (C,)
 
         # converts into pyTorch tensors
         Xw_t = torch.from_numpy(Xw).unsqueeze(0)  # [1, M, W] = [Channel, #Mel bands, Window frames]
