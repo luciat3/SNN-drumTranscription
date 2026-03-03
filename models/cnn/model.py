@@ -45,6 +45,8 @@ class DrumCNN(nn.Module):
             nn.Dropout(p=dropout),
         )
 
+        self.pool = nn.AdaptiveAvgPool2d((10, 10))
+
         self.classifier = nn.Sequential(
             # Flattens batch from [B, 64, 10, 10] to [B, 6400]
             nn.Flatten(),
@@ -57,4 +59,5 @@ class DrumCNN(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # x = [B, 1, 80, 86]
         x = self.features(x)
+        x = self.pool(x)
         return self.classifier(x)

@@ -26,48 +26,42 @@ def wav_duration_sec(wav_path: Path) -> float:
     return float(info.frames) / float(info.samplerate)
 
 
-def midi_to_onsets_by_class(midi_path: Path, drum_map: dict[str, set[int]]) -> dict[str, list[float]]:
+def midi_to_onsets_by_class(midi_path: Path, drum_map: dict[str, set[int]]) -> dict[str, list[dict]]:
     """
-    Returns {class_name: [onset_seconds, ...]} using label is_drum from pretty_midi
+    Modified function to also return velocity of each event,
+    which is the midi tag to indicate how hard the drum was hit.
+    Returns {class_name: [{"t": onset_seconds, "vel": velocity}, ...]}
     """
     pm = pretty_midi.PrettyMIDI(str(midi_path))
-
-    # output dictionary
     onsets = {cls: [] for cls in drum_map.keys()}
 
-    # drum appearances
     drum_instruments = [inst for inst in pm.instruments if inst.is_drum]
 
     for inst in drum_instruments:
         for note in inst.notes:
             pitch = int(note.pitch)
             t = float(note.start)
+            vel = int(note.velocity)
 
-            # assign classes according to drum_map (experiments/drum_map.json)
             for cls, pitches in drum_map.items():
                 if pitch in pitches:
-                    onsets[cls].append(t)
+                    onsets[cls].append({"t": t, "vel": vel})
                     break
 
-    # sort
+    # sort by time inside each class
     for cls in onsets:
-        times = sorted(onsets[cls])
-        list = []
-        eps = 1e-4
-        for x in times:
-            list.append(x)
-        onsets[cls] = list
+        onsets[cls].sort(key=lambda d: d["t"])
 
     return onsets
 
 
 def find_pairs(root: Path) -> list[tuple[Path, Path]]:
     """
-    Matches .wav and .mid files under root by their relative paths (without extensions).
+    Matches .wav and .midi files under root by their relative paths (without extensions).
     Returns list of (wav_path, midi_path) tuples.
     """
     wavs = {p.with_suffix("").as_posix(): p for p in root.rglob("*.wav")}
-    mids = {p.with_suffix("").as_posix(): p for p in root.rglob("*.mid")}
+    mids = {p.with_suffix("").as_posix(): p for p in root.rglob("*.midi")}
 
     common = sorted(set(wavs.keys()) & set(mids.keys()))
     pairs = [(wavs[k], mids[k]) for k in common]
@@ -76,8 +70,9 @@ def find_pairs(root: Path) -> list[tuple[Path, Path]]:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data_root", type=str, required=True)
-    ap.add_argument("--drum_map", type=str, required=True)
+    ap.add_argument("--data_root", type=str, default="data/raw/groove")
+    ap.add_argument("--drum_map", type=str, default="experiments/drum_map.json")
+    ap.add_argument("--mel_root", type=str, default="data/processed/mels")
     ap.add_argument("--out", type=str, default="data/processed/index.jsonl")
     args = ap.parse_args()
 
@@ -85,6 +80,9 @@ def main():
     drum_map_path = Path(args.drum_map).resolve()
     out_path = Path(args.out).resolve()
     out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    mel_root = Path(args.mel_root).resolve()
+    mel_root.mkdir(parents=True, exist_ok=True)
 
     drum_map = load_drum_map(drum_map_path)
 
@@ -102,11 +100,13 @@ def main():
                 total_events[cls] += len(times)
 
             track_id = wav_path.relative_to(data_root).with_suffix("").as_posix().replace("/", "__")
+            mel_path = mel_root / f"{track_id}.npy"
 
             row = {
                 "id": track_id,
                 "wav": str(wav_path),
                 "midi": str(midi_path),
+                "mel": str(mel_path),
                 "duration_sec": dur,
                 "onsets_sec": onsets
             }
@@ -118,6 +118,26 @@ def main():
     for cls, n in sorted(total_events.items(), key=lambda x: -x[1]):
         print(f"  {cls:12s} {n}")
 
+def print_onsets_in_time_order(onsets: dict[str, list[float]]):
+    events = []
+
+    for cls, times in onsets.items():
+        for t in times:
+            events.append((t, cls))
+
+    events.sort(key=lambda x: x[0])
+    for t, cls in events:
+        print(f"{t:8.3f} s  {cls}")
 
 if __name__ == "__main__":
     main()
+    
+    
+
+
+    #verifying that onsets are correctly extracted from midi files 
+    """
+    drum_map = load_drum_map(Path("experiments/drum_map.json").resolve())
+    onsets = midi_to_onsets_by_class("data/raw/samples/tfg.mid", drum_map)
+    print_onsets_in_time_order(onsets)
+    """

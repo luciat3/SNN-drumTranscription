@@ -1,6 +1,10 @@
 """
 Analizes and compares the wave of each part of the drumset
 using the recorded samples at /data/raw/oneShot_drumset
+
+Used to classify the different instruments into groups with similar 
+spectral characteristics, to help the model learn better by grouping 
+similar classes together.
 """
 
 import os

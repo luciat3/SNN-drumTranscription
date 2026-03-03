@@ -1,17 +1,18 @@
 ###############################################################################
-# Create train/val/test splits from an index file, ensuring an 80-10-10       #
-# strategy from every drummer so that the model is trained in every style     #
+# Create train/val/test splits from an index file using the official dataset  #
+# splits defined in the e-gmd-v1.0.0.csv (split column: train/validation/test)#
 ###############################################################################
 
 import argparse
 import json
-import random
 import re
 from collections import defaultdict
 from pathlib import Path
 
-
-DRUMMER_RE = re.compile(r"(?:^|/)(drummer[^/]+)(?:/|$)", re.IGNORECASE)
+# drummerX/<session>/<NUM>_something.wav  ->  drummerX/<session>/<NUM>
+WAV_TO_CSV_ID_RE = re.compile(
+    r"(?:^|/)(drummer[^/]+)/([^/]+)/(\d+)_", re.IGNORECASE
+)
 
 
 def read_index_jsonl(path: Path):
@@ -25,112 +26,145 @@ def read_index_jsonl(path: Path):
     return items
 
 
-def extract_drummer(wav_path: str) -> str:
-    m = DRUMMER_RE.search(wav_path)
-    return m.group(1)
-
-
-def split_counts(n: int):
+def load_csv_splits(csv_path: Path):
     """
-    Returns (n_train, n_val, n_test) following these rules:
-      - n >= 10: 80/10/10
-      - 3 <= n < 10: train=n-2, val=1, test=1
-      - n == 2: train=1, val=0, test=1
-      - n == 1: train=1, val=0, test=0
+    Reads e-gmd-v1.0.0.csv and returns:
+      split_by_csv_id: dict[csv_id -> split]  where split in {"train","validation","test"}
+    The CSV contains many rows per csv_id (different kits), but split is consistent per id.
     """
-    if n >= 10:
-        n_train = int(round(n * 0.8))
-        n_val = int(round(n * 0.1))
-        n_test = n - n_train - n_val
-        if n_val == 0:
-            n_val = 1
-            n_train -= 1
-        if n_test == 0:
-            n_test = 1
-            n_train -= 1
-        if n_train < 1:
-            n_train = max(1, n - (n_val + n_test))
-        return n_train, n_val, n_test
+    import csv
 
-    if n >= 3:
-        return n - 2, 1, 1
-    if n == 2:
-        return 1, 0, 1
-    return 1, 0, 0
+    split_by_csv_id = {}
+    with csv_path.open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        if "id" not in reader.fieldnames or "split" not in reader.fieldnames:
+            raise ValueError(
+                f"CSV must contain columns 'id' and 'split'. Found: {reader.fieldnames}"
+            )
+
+        for row in reader:
+            csv_id = row["id"].strip()
+            sp = row["split"].strip().lower()
+
+            if sp not in {"train", "validation", "test"}:
+                raise ValueError(f"Unexpected split value '{sp}' for id '{csv_id}'")
+
+            prev = split_by_csv_id.get(csv_id)
+            if prev is None:
+                split_by_csv_id[csv_id] = sp
+            elif prev != sp:
+                raise ValueError(
+                    f"Inconsistent split for id '{csv_id}': '{prev}' vs '{sp}'"
+                )
+
+    return split_by_csv_id
+
+
+def wav_to_csv_id(wav_path: str) -> str | None:
+    """
+    Try to derive the CSV 'id' (drummer/session/NUM) from a wav path.
+    Example:
+      drummer1/eval_session/1_funk-groove1_138_beat_4-4_1.wav -> drummer1/eval_session/1
+    """
+    m = WAV_TO_CSV_ID_RE.search(wav_path or "")
+    if not m:
+        return None
+    drummer, session, num = m.group(1), m.group(2), m.group(3)
+    return f"{drummer}/{session}/{num}"
+
+
+def extract_drummer_from_id_or_wav(item_id: str, wav_path: str) -> str:
+    # Prefer csv-like id (starts with drummerX/...)
+    if item_id:
+        parts = item_id.split("/")
+        if parts and parts[0].lower().startswith("drummer"):
+            return parts[0]
+    # Fallback to wav parsing
+    csv_id = wav_to_csv_id(wav_path)
+    if csv_id:
+        return csv_id.split("/")[0]
+    return "unknown"
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--index", type=str, default="data/processed/index.jsonl")
+    ap.add_argument("--csv", type=str, default="data/raw/groove/e-gmd-v1.0.0.csv")
     ap.add_argument("--out", type=str, default="data/processed/splits.json")
-    # seed allowing reproducibility of the splits
-    ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
 
     index_path = Path(args.index).resolve()
+    csv_path = Path(args.csv).resolve()
     out_path = Path(args.out).resolve()
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     items = read_index_jsonl(index_path)
-
-    # group by drummer
-    by_drummer = defaultdict(list)
-    for it in items:
-        wav = it.get("wav", "")
-        drummer = extract_drummer(wav)
-        by_drummer[drummer].append(it["id"])
-
-    rng = random.Random(args.seed)
+    split_by_csv_id = load_csv_splits(csv_path)
 
     train_ids, val_ids, test_ids = [], [], []
-    per_drummer_stats = {}
+    per_drummer_stats = defaultdict(lambda: {"total": 0, "train": 0, "val": 0, "test": 0})
 
-    for drummer, ids in sorted(by_drummer.items()):
-        ids = list(ids)
-        rng.shuffle(ids)
+    missing = 0
+    unresolved_examples = []
 
-        n = len(ids)
-        n_train, n_val, n_test = split_counts(n)
+    for it in items:
+        item_id = it.get("id", "")
+        wav = it.get("wav", "")
 
-        train_part = ids[:n_train]
-        val_part = ids[n_train:n_train + n_val]
-        test_part = ids[n_train + n_val:n_train + n_val + n_test]
+        csv_id = item_id if item_id in split_by_csv_id else None
+        if csv_id is None:
+            csv_id = wav_to_csv_id(wav)
 
-        train_ids.extend(train_part)
-        val_ids.extend(val_part)
-        test_ids.extend(test_part)
+        if not csv_id or csv_id not in split_by_csv_id:
+            missing += 1
+            if len(unresolved_examples) < 10:
+                unresolved_examples.append({"id": item_id, "wav": wav, "derived": csv_id})
+            continue
 
-        per_drummer_stats[drummer] = {
-            "total": n,
-            "train": len(train_part),
-            "val": len(val_part),
-            "test": len(test_part),
-        }
+        sp = split_by_csv_id[csv_id]  # train / validation / test
+        drummer = extract_drummer_from_id_or_wav(item_id, wav)
+
+        per_drummer_stats[drummer]["total"] += 1
+
+        if sp == "train":
+            train_ids.append(item_id)
+            per_drummer_stats[drummer]["train"] += 1
+        elif sp == "validation":
+            val_ids.append(item_id)
+            per_drummer_stats[drummer]["val"] += 1
+        elif sp == "test":
+            test_ids.append(item_id)
+            per_drummer_stats[drummer]["test"] += 1
 
     splits = {
-        "seed": args.seed,
-        "strategy": "drummer_stratified_80_10_10",
+        "strategy": "dataset_defined_csv_splits",
         "index": str(index_path),
+        "csv": str(csv_path),
         "counts": {
             "train": len(train_ids),
             "val": len(val_ids),
             "test": len(test_ids),
             "total": len(train_ids) + len(val_ids) + len(test_ids),
+            "missing_unmatched": missing,
         },
-        "per_drummer": per_drummer_stats,
+        "per_drummer": dict(sorted(per_drummer_stats.items())),
         "train": train_ids,
         "val": val_ids,
         "test": test_ids,
     }
 
+    if missing > 0:
+        splits["unmatched_examples"] = unresolved_examples
+
     out_path.write_text(json.dumps(splits, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    # imprimir resumen
     print(f"\nResult path {out_path}")
     print("\nSplit count:", splits["counts"])
-    print("\nDrummer counts:")
-    for drummer, st in per_drummer_stats.items():
-        print(f"  {drummer:10s} total={st['total']:4d}  train={st['train']:4d}  val={st['val']:4d}  test={st['test']:4d}")
+    if missing:
+        print(f"\nWARNING: {missing} items in index.jsonl could not be matched to CSV splits.")
+        print("Examples (up to 10):")
+        for ex in unresolved_examples:
+            print(" ", ex)
 
 
 if __name__ == "__main__":
