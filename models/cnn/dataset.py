@@ -90,15 +90,34 @@ def compute_log_mel(y: np.ndarray, cfg: SpecConfig) -> np.ndarray:
     )
     return np.log1p(S).astype(np.float32)  # (M, T)
 
+def compute_mel(y: np.ndarray, cfg: SpecConfig) -> np.ndarray:
+    """
+    Computes mel spectrogram from audio signal
+    to improve learning of temporal patterns 
+
+    Now used only once before training runs (mel data of every track)
+    """
+    S = librosa.feature.melspectrogram(
+        y=y,
+        sr=cfg.sr,
+        n_fft=cfg.n_fft,
+        hop_length=cfg.hop_length,
+        n_mels=cfg.n_mels,
+        power=2.0,
+    )
+    return S.astype(np.float32)  # (M, T)
+
 
 # To compare results, we can also compute the log spectrogram without mel scaling
 def compute_log_spectrogram(y: np.ndarray, cfg) -> np.ndarray:
-    S = librosa.feature.spectrogram(
+    D = librosa.stft(
         y=y,
         n_fft=cfg.n_fft,
         hop_length=cfg.hop_length,
-        power=2.0,
+        window="hann",
+        center=True,
     )
+    S = np.abs(D) ** 2
     return np.log1p(S).astype(np.float32)
 
 

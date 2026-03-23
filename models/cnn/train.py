@@ -221,7 +221,7 @@ def main():
         ids=train_ids,
         cfg=cfg,
         sampling="random",
-        max_windows_per_track=32,
+        max_windows_per_track=8,
         seed=42,
         p_pos=0.6,
     )

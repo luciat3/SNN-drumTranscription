@@ -5,13 +5,13 @@ from pathlib import Path
 import numpy as np
 import librosa
 
-from models.cnn.dataset import SpecConfig, compute_log_mel
+from models.cnn.dataset import SpecConfig, compute_log_mel, compute_log_spectrogram, compute_mel
 
 # to avoid recalculating mels for every window, we precompute them for the whole track and save as .npy files
 
 def main():
     index_jsonl = Path("data/processed/index.jsonl")
-    out_root = Path("data/processed/mels")
+    out_root = Path("data/processed/melsNOlog")
     out_root.mkdir(parents=True, exist_ok=True)
 
     cfg = SpecConfig(win_seconds=1.0, tol_frames=1)
@@ -34,7 +34,9 @@ def main():
                 continue
 
             y, _ = librosa.load(wav_path, sr=cfg.sr, mono=True)
-            X = compute_log_mel(y, cfg)  # (M, T) float32
+            #X = compute_log_mel(y, cfg)  # (M, T) float32
+            #X = compute_log_spectrogram(y, cfg)  # (M, T) float32
+            X = compute_mel(y, cfg)  # (M, T) float32
 
             np.save(out_path, X)
             n_ok += 1
