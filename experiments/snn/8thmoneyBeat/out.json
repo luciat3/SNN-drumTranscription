@@ -1,0 +1,429 @@
+[
+  {
+    "time_sec": 0.5108390022675737,
+    "frame": 44,
+    "class": "kick",
+    "prob": 0.9992212057113647,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 0.8243083900226758,
+    "frame": 71,
+    "class": "hihat_closed",
+    "prob": 0.9310177564620972,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 0.8707482993197279,
+    "frame": 75,
+    "class": "snare",
+    "prob": 0.7520704865455627,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 0.9636281179138322,
+    "frame": 83,
+    "class": "hihat_closed",
+    "prob": 0.765404462814331,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 1.253877551020408,
+    "frame": 108,
+    "class": "kick",
+    "prob": 0.9408980011940002,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 1.253877551020408,
+    "frame": 108,
+    "class": "snare",
+    "prob": 0.968042254447937,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 1.4512471655328798,
+    "frame": 125,
+    "class": "snare",
+    "prob": 0.8716790676116943,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 1.5789569160997732,
+    "frame": 136,
+    "class": "snare",
+    "prob": 0.8282462358474731,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 1.6370068027210884,
+    "frame": 141,
+    "class": "hihat_closed",
+    "prob": 0.850085437297821,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 1.9504761904761905,
+    "frame": 168,
+    "class": "kick",
+    "prob": 0.9980097413063049,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 1.9504761904761905,
+    "frame": 168,
+    "class": "crash",
+    "prob": 0.7659125328063965,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 1.9736961451247166,
+    "frame": 170,
+    "class": "hihat_closed",
+    "prob": 0.7510750889778137,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 2.1942857142857144,
+    "frame": 189,
+    "class": "xstick",
+    "prob": 0.7970277070999146,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 2.2523356009070294,
+    "frame": 194,
+    "class": "hihat_closed",
+    "prob": 0.8641765117645264,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 2.380045351473923,
+    "frame": 205,
+    "class": "hihat_closed",
+    "prob": 0.7690398097038269,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 2.670294784580499,
+    "frame": 230,
+    "class": "snare",
+    "prob": 0.9916315674781799,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 2.809614512471655,
+    "frame": 242,
+    "class": "snare",
+    "prob": 0.8717828989028931,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 2.972154195011338,
+    "frame": 256,
+    "class": "snare",
+    "prob": 0.8085324764251709,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 2.995374149659864,
+    "frame": 258,
+    "class": "hihat_closed",
+    "prob": 0.8651174902915955,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 3.3436734693877552,
+    "frame": 288,
+    "class": "kick",
+    "prob": 0.9947346448898315,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 3.3668934240362813,
+    "frame": 290,
+    "class": "hihat_closed",
+    "prob": 0.8138687610626221,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 3.657142857142857,
+    "frame": 315,
+    "class": "hihat_closed",
+    "prob": 0.8678660988807678,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 3.900952380952381,
+    "frame": 336,
+    "class": "hihat_closed",
+    "prob": 0.7407169938087463,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 4.040272108843538,
+    "frame": 348,
+    "class": "snare",
+    "prob": 0.9895129799842834,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 4.400181405895691,
+    "frame": 379,
+    "class": "hihat_closed",
+    "prob": 0.8013006448745728,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 4.702040816326531,
+    "frame": 405,
+    "class": "kick",
+    "prob": 0.9969178438186646,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 4.911020408163266,
+    "frame": 423,
+    "class": "hihat_closed",
+    "prob": 0.7979746460914612,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 5.027120181405896,
+    "frame": 433,
+    "class": "snare",
+    "prob": 0.7910600304603577,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 5.085170068027211,
+    "frame": 438,
+    "class": "hihat_closed",
+    "prob": 0.8345702886581421,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 5.363809523809524,
+    "frame": 462,
+    "class": "snare",
+    "prob": 0.9781782031059265,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 5.607619047619048,
+    "frame": 483,
+    "class": "snare",
+    "prob": 0.9302047491073608,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 5.6656689342403626,
+    "frame": 488,
+    "class": "hihat_closed",
+    "prob": 0.7766812443733215,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 5.9675283446712015,
+    "frame": 514,
+    "class": "kick",
+    "prob": 0.9965841770172119,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 6.222947845804988,
+    "frame": 536,
+    "class": "snare",
+    "prob": 0.8812904357910156,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 6.257777777777778,
+    "frame": 539,
+    "class": "hihat_closed",
+    "prob": 0.8870779871940613,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 6.548027210884354,
+    "frame": 564,
+    "class": "kick",
+    "prob": 0.8500290513038635,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 6.5712471655328795,
+    "frame": 566,
+    "class": "snare",
+    "prob": 0.9806486964225769,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 6.815056689342404,
+    "frame": 587,
+    "class": "snare",
+    "prob": 0.7588303089141846,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 6.815056689342404,
+    "frame": 587,
+    "class": "hihat_closed",
+    "prob": 0.7193334698677063,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 7.116916099773243,
+    "frame": 613,
+    "class": "kick",
+    "prob": 0.9990218877792358,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 7.430385487528345,
+    "frame": 640,
+    "class": "hihat_closed",
+    "prob": 0.9303734302520752,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 7.627755102040816,
+    "frame": 657,
+    "class": "hihat_closed",
+    "prob": 0.7366393208503723,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 7.732244897959184,
+    "frame": 666,
+    "class": "snare",
+    "prob": 0.9895278811454773,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 7.87156462585034,
+    "frame": 678,
+    "class": "snare",
+    "prob": 0.7782474160194397,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 8.347573696145124,
+    "frame": 719,
+    "class": "kick",
+    "prob": 0.9973745346069336,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 8.347573696145124,
+    "frame": 719,
+    "class": "hihat_closed",
+    "prob": 0.7179720997810364,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 8.347573696145124,
+    "frame": 719,
+    "class": "crash",
+    "prob": 0.7608732581138611,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 8.614603174603175,
+    "frame": 742,
+    "class": "hihat_closed",
+    "prob": 0.9324886202812195,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 8.777142857142858,
+    "frame": 756,
+    "class": "hihat_closed",
+    "prob": 0.7558571100234985,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 8.93968253968254,
+    "frame": 770,
+    "class": "kick",
+    "prob": 0.9633129239082336,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 8.962902494331066,
+    "frame": 772,
+    "class": "snare",
+    "prob": 0.963636040687561,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 9.195102040816327,
+    "frame": 792,
+    "class": "hihat_closed",
+    "prob": 0.8122463822364807,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 9.241541950113378,
+    "frame": 796,
+    "class": "snare",
+    "prob": 0.8761633634567261,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 9.496961451247165,
+    "frame": 818,
+    "class": "kick",
+    "prob": 0.9988551139831543,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 9.798820861678005,
+    "frame": 844,
+    "class": "hihat_closed",
+    "prob": 0.9174675941467285,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 9.926530612244898,
+    "frame": 855,
+    "class": "hihat_closed",
+    "prob": 0.700160562992096,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 10.065850340136054,
+    "frame": 867,
+    "class": "kick",
+    "prob": 0.8792458772659302,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 10.12390022675737,
+    "frame": 872,
+    "class": "snare",
+    "prob": 0.9840821027755737,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 10.332879818594105,
+    "frame": 890,
+    "class": "snare",
+    "prob": 0.8165707588195801,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 10.704399092970522,
+    "frame": 922,
+    "class": "kick",
+    "prob": 0.997880220413208,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 10.971428571428572,
+    "frame": 945,
+    "class": "hihat_closed",
+    "prob": 0.888469934463501,
+    "threshold": 0.699999988079071
+  }
+]

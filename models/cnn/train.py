@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import math
 from pathlib import Path
 
 import torch
@@ -9,6 +10,7 @@ from torch.utils.data import DataLoader
 from typing import Union
 
 from models.cnn.dataset import DrumOnsetWindowDataset, SpecConfig, CLASSES
+from models.cnn.fewshot import FewShotMultiLabelDataset
 from models.cnn.model import DrumCNN
 
 import time
@@ -190,6 +192,121 @@ def estimate_pos_weight_from_loader(dl, num_classes: int, max_batches: int = 200
 
     return pos_weight.float(), pos_rate.float()
 
+def train_one_epoch_cnn(
+    model,
+    train_dl,
+    criterion,
+    optim,
+    scaler,
+    device,
+    use_amp,
+    threshold=0.5,
+    log_every=1,
+):
+    model.train()
+
+    train_loss = 0.0
+    all_logits = []
+    all_targets = []
+
+    for batch_idx, (X, y) in enumerate(train_dl):
+        X = X.to(device, non_blocking=True)
+        y = y.to(device, non_blocking=True)
+
+        optim.zero_grad(set_to_none=True)
+
+        with torch.amp.autocast(device_type="cuda", enabled=use_amp):
+            logits = model(X)
+            loss = criterion(logits, y)
+
+        scaler.scale(loss).backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        scaler.step(optim)
+        scaler.update()
+
+        train_loss += loss.item() * X.size(0)
+
+        all_logits.append(logits.detach().cpu())
+        all_targets.append(y.detach().cpu())
+
+        if batch_idx % log_every == 0:
+            tmp_logits = torch.cat(all_logits, dim=0)
+            tmp_targets = torch.cat(all_targets, dim=0)
+
+            tmp_stats = f1_stats_from_logits(
+                tmp_logits,
+                tmp_targets,
+                thr=threshold,
+            )
+
+            probs = torch.sigmoid(tmp_logits)
+            if isinstance(threshold, torch.Tensor):
+                thr_use = threshold.cpu().view(1, -1)
+                preds = (probs >= thr_use).to(tmp_targets.dtype)
+            else:
+                preds = (probs >= float(threshold)).to(tmp_targets.dtype)
+
+            pos_rate_y = tmp_targets.mean().item()
+            pos_rate_pred = preds.mean().item()
+
+            print(
+                f"batch {batch_idx:4d}/{len(train_dl)-1:4d} | "
+                f"loss={loss.item():.4f} | "
+                f"micro_f1={tmp_stats['micro_f1']:.4f} | "
+                f"macro_f1={tmp_stats['macro_f1']:.4f} | "
+                f"micro_prec={tmp_stats['micro_precision']:.4f} | "
+                f"micro_rec={tmp_stats['micro_recall']:.4f} | "
+                f"pos(y)={pos_rate_y:.3f} | "
+                f"pos(pred)={pos_rate_pred:.3f}"
+            )
+
+    train_loss /= max(len(train_dl.dataset), 1)
+
+    logits_all = torch.cat(all_logits, dim=0)
+    targets_all = torch.cat(all_targets, dim=0)
+
+    train_stats = f1_stats_from_logits(
+        logits_all,
+        targets_all,
+        thr=threshold,
+    )
+    train_stats = add_derived_rates(train_stats)
+    train_stats["loss"] = train_loss
+
+    return train_stats
+
+@torch.no_grad()
+def evaluate_cnn(model, data_loader, criterion, device, threshold):
+    model.eval()
+
+    total_loss = 0.0
+    all_logits = []
+    all_targets = []
+
+    for X, y in data_loader:
+        X = X.to(device, non_blocking=True)
+        y = y.to(device, non_blocking=True)
+
+        logits = model(X)
+        loss = criterion(logits, y)
+
+        total_loss += loss.item() * X.size(0)
+        all_logits.append(logits.detach().cpu())
+        all_targets.append(y.detach().cpu())
+
+    logits_all = torch.cat(all_logits, dim=0)
+    targets_all = torch.cat(all_targets, dim=0)
+
+    stats = f1_stats_from_logits(
+        logits_all,
+        targets_all,
+        thr=threshold,
+    )
+    stats = add_derived_rates(stats)
+    stats["loss"] = total_loss / max(len(data_loader.dataset), 1)
+
+    return stats, logits_all, targets_all
+
 def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     use_amp = (device == "cuda")
@@ -200,7 +317,7 @@ def main():
     # Paths
     index_jsonl = "data/processed/index.jsonl"
     splits_json = "data/processed/splits.json"
-    out_dir = Path("models/cnn/runs/run7")
+    out_dir = Path("models/cnn/runs/run3_fewshot")
     out_dir.mkdir(parents=True, exist_ok=True)
     # save results
     metrics_path = out_dir / "metrics.jsonl"
@@ -209,12 +326,22 @@ def main():
     write_header = not csv_path.exists()
 
     # Config
-    cfg = SpecConfig(win_seconds=1.0, tol_frames=3)
-    train_ids, val_ids, _ = load_splits(splits_json)
+    SHOTS_PER_CLASS = 1
+    MAX_NEGATIVES = 25
+    SEED = 42
+
+    cfg = SpecConfig(
+        win_seconds=1.0,
+        tol_frames=3,
+        label_mode="center",
+    )
+
+    train_ids, val_ids, test_ids = load_splits(splits_json)
 
     #window_frames = int(round(cfg.win_seconds * cfg.sr / cfg.hop_length))
     #stride_frames = max(1, window_frames // 2)
 
+    """
     # Dataset, p_pos to avoid center class: none
     train_ds = DrumOnsetWindowDataset(
         index_jsonl=index_jsonl,
@@ -225,21 +352,58 @@ def main():
         seed=42,
         p_pos=0.6,
     )
+    """
+    base_train_ds = DrumOnsetWindowDataset(
+        index_jsonl=index_jsonl,
+        ids=train_ids,
+        cfg=cfg,
+        sampling="random",
+        max_windows_per_track=1,
+        seed=SEED,
+        p_pos=0.9,
+    )
+    train_ds = FewShotMultiLabelDataset(
+        base_dataset=base_train_ds,
+        shots_per_class=SHOTS_PER_CLASS,
+        max_negatives=MAX_NEGATIVES,
+        seed=SEED,
+    )
+    BATCH_SIZE = 128
+
+    print("\nFew-shot configuration:")
+    print("  shots_per_class:", SHOTS_PER_CLASS)
+    print("  max_negatives:", MAX_NEGATIVES)
+    print("  seed:", SEED)
+    print("  final train windows:", len(train_ds))
+    print("  batch_size:", BATCH_SIZE)
+    print("  batches per epoch:", math.ceil(len(train_ds) / BATCH_SIZE))
+
     val_ds = DrumOnsetWindowDataset(
         index_jsonl=index_jsonl,
         ids=val_ids,
         cfg=cfg,
-        sampling="all",
-        stride_frames=0,
+        sampling="random",
+        max_windows_per_track=8,
         seed=123,
-        p_pos=0.0,
+        p_pos=0.5,
     )
 
-    print("Tracks train:", len(train_ds.rows))
-    print("Samples train:", len(train_ds), "=> batches/epoch:", len(train_ds)//32)
+    test_ds = DrumOnsetWindowDataset(
+        index_jsonl=index_jsonl,
+        ids=test_ids,
+        cfg=cfg,
+        sampling="random",
+        max_windows_per_track=8,
+        seed=456,
+        p_pos=0.5,
+    )
+
+    print("Tracks train:", len(base_train_ds.rows))
+    print("Samples train:", len(train_ds), "=> batches/epoch:", len(train_ds) // 128)
     print("Tracks val:", len(val_ds.rows))
-    print("Example row keys:", train_ds.rows[0].keys())
-    print("Example mel path:", train_ds.rows[0].get("mel"))
+    print("Tracks test:", len(test_ds.rows))
+    print("Example row keys:", base_train_ds.rows[0].keys())
+    print("Example mel path:", base_train_ds.rows[0].get("mel"))
 
 
     pin_memory = (device == "cuda")
@@ -250,28 +414,56 @@ def main():
     # 80: Mel bands
     # 86: frames per window
     # and y = [B, C] where C = len(classes)
-    train_dl = DataLoader(train_ds, batch_size=128, shuffle=True, num_workers=8, pin_memory=pin_memory)
-    val_dl = DataLoader(val_ds, batch_size=128, shuffle=False, num_workers=8, pin_memory=pin_memory)
-
-
-    pw_ds = DrumOnsetWindowDataset(
-        index_jsonl=index_jsonl,
-        ids=train_ids,
-        cfg=cfg,
-        sampling="random",
-        max_windows_per_track=16,
-        seed=1234,
-        p_pos=0.0,  
+    train_dl = DataLoader(
+        train_ds,
+        batch_size=128,
+        shuffle=True,
+        num_workers=8,
+        pin_memory=pin_memory,
     )
 
-    pw_dl = DataLoader(pw_ds, batch_size=32, shuffle=True, num_workers=0, pin_memory=pin_memory)
+    val_dl = DataLoader(
+        val_ds,
+        batch_size=128,
+        shuffle=False,
+        num_workers=8,
+        pin_memory=pin_memory,
+    )
 
-    model = DrumCNN(num_classes=len(CLASSES), dropout=0.3).to(device)           
+    test_dl = DataLoader(
+        test_ds,
+        batch_size=128,
+        shuffle=False,
+        num_workers=8,
+        pin_memory=pin_memory,
+    )
+
+    model = DrumCNN(num_classes=len(CLASSES), dropout=0.3).to(device)   
+
+    """
+    pw_dl = DataLoader(pw_ds, batch_size=32, shuffle=True, num_workers=0, pin_memory=pin_memory)
 
     pos_weight, pos_rate = estimate_pos_weight_from_loader(pw_dl, num_classes=len(CLASSES), max_batches=400)
 
     # clamp pos_weight to avoid too large values which can cause instability in training
     pos_weight = torch.log1p(pos_weight)
+    """
+
+    pw_dl = DataLoader(
+        train_ds,
+        batch_size=32,
+        shuffle=False,
+        num_workers=0,
+        pin_memory=pin_memory,
+    )
+
+    pos_weight, pos_rate = estimate_pos_weight_from_loader(
+        pw_dl,
+        num_classes=len(CLASSES),
+        max_batches=9999,
+    )
+
+    pos_weight = torch.log1p(pos_weight).clamp(max=8.0)
 
     print("Estimated pos_rate per class:", {CLASSES[i]: float(pos_rate[i]) for i in range(len(CLASSES))})
     print("Using pos_weight:", {CLASSES[i]: float(pos_weight[i]) for i in range(len(CLASSES))})
@@ -299,38 +491,31 @@ def main():
 
         epoch_start = time.time()
 
+        """
         if epoch <= 5:
             train_ds.p_pos = 0.8
         elif epoch <= 10:
             train_ds.p_pos = 0.5
         else:
             train_ds.p_pos = 0.3
+        """
 
         # ---- train
-        model.train()
-        train_loss = 0.0
-        # iterates batches
-        for X, y in train_dl:
-            X = X.to(device)               # [B,1,80,86]
-            y = y.to(device)               # [B,8]
+        train_stats = train_one_epoch_cnn(
+            model=model,
+            train_dl=train_dl,
+            criterion=criterion,
+            optim=optim,
+            scaler=scaler,
+            device=device,
+            use_amp=use_amp,
+            threshold=0.5,      # durante training usa 0.5, como referencia estable
+            log_every=1,        # few-shot: normalmente hay pocos batches
+        )
 
-            # reset gradient
-            optim.zero_grad(set_to_none=True)
-
-            with torch.amp.autocast(device_type="cuda", enabled=use_amp):
-                logits = model(X)
-                loss = criterion(logits, y)
-
-            scaler.scale(loss).backward()
-
-            # adjusts weight using gradient
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-            scaler.step(optim)
-            scaler.update()
-
-            train_loss += loss.item() * X.size(0)
-
-        train_loss /= len(train_ds)
+        train_loss = train_stats["loss"]
+        train_micro_f1 = train_stats["micro_f1"]
+        train_macro_f1 = train_stats["macro_f1"]
 
         # ---- val
         model.eval()
@@ -390,9 +575,15 @@ def main():
 
         print(
             f"Epoch {epoch:02d} | "
-            f"train_loss={train_loss:.4f} | val_loss={val_loss:.4f} | "
-            f"val_microF1={val_micro_f1:.4f} | val_macroF1={val_macro_f1:.4f} | "
-            f"pos(y)={pos_rate_y:.3f} pos(pred)={pos_rate_pred:.3f} | "
+            f"train_loss={train_loss:.4f} | "
+            f"train_microF1={train_micro_f1:.4f} | "
+            f"train_macroF1={train_macro_f1:.4f} | "
+            f"val_loss={val_loss:.4f} | "
+            f"val_microF1={val_micro_f1:.4f} | "
+            f"val_macroF1={val_macro_f1:.4f} | "
+            f"pos(y)={pos_rate_y:.3f} | "
+            f"pos(pred)={pos_rate_pred:.3f} | "
+            f"lr={optim.param_groups[0]['lr']:.1e} | "
             f"time={epoch_time:.2f}s"
         )
 
@@ -406,10 +597,15 @@ def main():
         metrics_row = {
             "epoch": epoch,
             "epoch_time_sec": epoch_time,
+
             "train_loss": train_loss,
+            "train_microF1": train_micro_f1,
+            "train_macroF1": train_macro_f1,
+
             "val_loss": val_loss,
             "val_microF1": val_micro_f1,
             "val_macroF1": val_macro_f1,
+
             "pos_rate_y": pos_rate_y,
             "pos_rate_pred": pos_rate_pred,
             "threshold": thr,
@@ -435,7 +631,6 @@ def main():
                 per_class_cols = []
                 for name in CLASSES:
                     per_class_cols += [f"tp_{name}", f"fp_{name}", f"fn_{name}", f"tn_{name}"]
-                    # optional:
                     # per_class_cols += [f"prec_{name}", f"rec_{name}", f"f1_{name}"]
                 f.write(",".join(base_cols + per_class_cols) + "\n")
                 write_header = False
@@ -462,19 +657,76 @@ def main():
         if val_macro_f1 > best_val_f1:
             best_val_f1 = val_macro_f1
             bad_epochs = 0
+
+            best_thresholds = thr_c.clone()
+
+            test_stats, _, _ = evaluate_cnn(
+                model=model,
+                data_loader=test_dl,
+                criterion=criterion,
+                device=device,
+                threshold=best_thresholds,
+            )
+
+            test_f1_by_name = {
+                CLASSES[i]: test_stats["f1_by_class"][i]
+                for i in range(len(CLASSES))
+            }
+
             ckpt = {
                 "epoch": epoch,
                 "model_state": model.state_dict(),
                 "cfg": cfg.__dict__,
                 "classes": CLASSES,
-                "val_microF1": best_val_f1,
+
+                "shots_per_class": SHOTS_PER_CLASS,
+                "max_negatives": MAX_NEGATIVES,
+                "seed": SEED,
+
+                "val_microF1": val_micro_f1,
                 "val_macroF1": val_macro_f1,
+
+                "test_loss": test_stats["loss"],
+                "test_microF1": test_stats["micro_f1"],
+                "test_macroF1": test_stats["macro_f1"],
+                "test_micro_precision": test_stats["micro_precision"],
+                "test_micro_recall": test_stats["micro_recall"],
+                "test_f1_by_name": test_f1_by_name,
+
                 "threshold": thr,
+                "threshold_by_class": {
+                    CLASSES[i]: float(best_thresholds[i])
+                    for i in range(len(CLASSES))
+                },
+
                 "total_training_time_sec": epoch_time,
                 "lr": optim.param_groups[0]["lr"],
             }
+
             torch.save(ckpt, out_dir / "best.pt")
-            print(f"Saved best.pt (val_macroF1={best_val_f1:.4f})")
+
+            print(
+                f"Saved best.pt | "
+                f"val_macroF1={val_macro_f1:.4f} | "
+                f"test_macroF1={test_stats['macro_f1']:.4f} | "
+                f"test_microF1={test_stats['micro_f1']:.4f}"
+            )
+            test_metrics_path = out_dir / "best_test_metrics.json"
+
+            with open(test_metrics_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "epoch": epoch,
+                        "test_stats": test_stats,
+                        "threshold_by_class": {
+                            CLASSES[i]: float(best_thresholds[i])
+                            for i in range(len(CLASSES))
+                        },
+                        "test_f1_by_name": test_f1_by_name,
+                    },
+                    f,
+                    indent=2,
+                )
         else:
             bad_epochs += 1
             if bad_epochs >= patience:

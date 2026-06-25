@@ -1,0 +1,688 @@
+[
+  {
+    "time_sec": 0.5456689342403628,
+    "frame": 47,
+    "class": "hihat_closed",
+    "prob": 0.7071824669837952,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 0.5804988662131519,
+    "frame": 50,
+    "class": "kick",
+    "prob": 0.9985017776489258,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 0.5804988662131519,
+    "frame": 50,
+    "class": "crash",
+    "prob": 0.8481044769287109,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 0.5804988662131519,
+    "frame": 50,
+    "class": "ride_bow",
+    "prob": 0.8404935598373413,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 0.9404081632653061,
+    "frame": 81,
+    "class": "hihat_closed",
+    "prob": 0.7184746861457825,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 0.9520181405895691,
+    "frame": 82,
+    "class": "ride_bow",
+    "prob": 0.9687175750732422,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 1.1029478458049886,
+    "frame": 95,
+    "class": "ride_bow",
+    "prob": 0.9242124557495117,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 1.3003174603174603,
+    "frame": 112,
+    "class": "ride_bow",
+    "prob": 0.9207327365875244,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 1.3699773242630386,
+    "frame": 118,
+    "class": "ride_bow",
+    "prob": 0.8803597092628479,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 1.3815873015873017,
+    "frame": 119,
+    "class": "snare",
+    "prob": 0.9667506217956543,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 1.4048072562358276,
+    "frame": 121,
+    "class": "kick",
+    "prob": 0.9556600451469421,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 1.4512471655328798,
+    "frame": 125,
+    "class": "snare",
+    "prob": 0.8661847114562988,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 2.1130158730158732,
+    "frame": 182,
+    "class": "ride_bow",
+    "prob": 0.8661660552024841,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 2.147845804988662,
+    "frame": 185,
+    "class": "hihat_closed",
+    "prob": 0.7875319719314575,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 2.147845804988662,
+    "frame": 185,
+    "class": "kick",
+    "prob": 0.9991477727890015,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 2.159455782312925,
+    "frame": 186,
+    "class": "crash",
+    "prob": 0.7530557513237,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 2.449705215419501,
+    "frame": 211,
+    "class": "ride_bow",
+    "prob": 0.8856845498085022,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 2.5541950113378684,
+    "frame": 220,
+    "class": "hihat_pedal",
+    "prob": 0.8076953291893005,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 2.5658049886621317,
+    "frame": 221,
+    "class": "ride_bow",
+    "prob": 0.962225079536438,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 2.914104308390023,
+    "frame": 251,
+    "class": "ride_bow",
+    "prob": 0.8241842985153198,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 2.948934240362812,
+    "frame": 254,
+    "class": "kick",
+    "prob": 0.8908603191375732,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 2.9837641723356008,
+    "frame": 257,
+    "class": "snare",
+    "prob": 0.9647922515869141,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 3.076643990929705,
+    "frame": 265,
+    "class": "snare",
+    "prob": 0.7720698118209839,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 3.355283446712018,
+    "frame": 289,
+    "class": "hihat_pedal",
+    "prob": 0.8190715312957764,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 3.622312925170068,
+    "frame": 312,
+    "class": "tom",
+    "prob": 0.7196951508522034,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 3.7268027210884354,
+    "frame": 321,
+    "class": "kick",
+    "prob": 0.999771773815155,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 3.7616326530612243,
+    "frame": 324,
+    "class": "crash",
+    "prob": 0.8858872652053833,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 3.7732426303854876,
+    "frame": 325,
+    "class": "ride_bow",
+    "prob": 0.9070658087730408,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 4.017052154195011,
+    "frame": 346,
+    "class": "ride_bow",
+    "prob": 0.8564673066139221,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 4.08671201814059,
+    "frame": 352,
+    "class": "ride_bow",
+    "prob": 0.9117192029953003,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 4.1099319727891155,
+    "frame": 354,
+    "class": "hihat_pedal",
+    "prob": 0.7502173185348511,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 4.539501133786848,
+    "frame": 391,
+    "class": "snare",
+    "prob": 0.9699297547340393,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 4.620770975056689,
+    "frame": 398,
+    "class": "snare",
+    "prob": 0.7610320448875427,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 4.992290249433107,
+    "frame": 430,
+    "class": "tom",
+    "prob": 0.7270938158035278,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 5.305759637188209,
+    "frame": 457,
+    "class": "hihat_closed",
+    "prob": 0.7530050277709961,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 5.305759637188209,
+    "frame": 457,
+    "class": "ride_bow",
+    "prob": 0.8952467441558838,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 5.317369614512471,
+    "frame": 458,
+    "class": "kick",
+    "prob": 0.9999110698699951,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 5.317369614512471,
+    "frame": 458,
+    "class": "crash",
+    "prob": 0.887831449508667,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 5.572789115646258,
+    "frame": 480,
+    "class": "ride_bow",
+    "prob": 0.8822844624519348,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 5.688888888888889,
+    "frame": 490,
+    "class": "ride_bow",
+    "prob": 0.9253180027008057,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 5.7004988662131515,
+    "frame": 491,
+    "class": "hihat_closed",
+    "prob": 0.8166930675506592,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 6.03718820861678,
+    "frame": 520,
+    "class": "ride_bow",
+    "prob": 0.829221248626709,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 6.106848072562358,
+    "frame": 526,
+    "class": "ride_bow",
+    "prob": 0.8576110005378723,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 6.1184580498866215,
+    "frame": 527,
+    "class": "snare",
+    "prob": 0.9676079154014587,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 6.2345578231292516,
+    "frame": 537,
+    "class": "snare",
+    "prob": 0.8159474730491638,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 6.373877551020408,
+    "frame": 549,
+    "class": "kick",
+    "prob": 0.8564529418945312,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 6.8382766439909295,
+    "frame": 589,
+    "class": "ride_bow",
+    "prob": 0.9081008434295654,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 6.873106575963718,
+    "frame": 592,
+    "class": "crash",
+    "prob": 0.854819655418396,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 6.884716553287982,
+    "frame": 593,
+    "class": "kick",
+    "prob": 0.9999672174453735,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 6.884716553287982,
+    "frame": 593,
+    "class": "hihat_open",
+    "prob": 0.7297520041465759,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 6.931156462585034,
+    "frame": 597,
+    "class": "ride_bow",
+    "prob": 0.8900865316390991,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 7.279455782312925,
+    "frame": 627,
+    "class": "hihat_pedal",
+    "prob": 0.748148500919342,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 7.302675736961452,
+    "frame": 629,
+    "class": "ride_bow",
+    "prob": 0.9478779435157776,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 7.650975056689342,
+    "frame": 659,
+    "class": "ride_bow",
+    "prob": 0.8930369019508362,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 7.697414965986394,
+    "frame": 663,
+    "class": "snare",
+    "prob": 0.9718942642211914,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 7.7090249433106575,
+    "frame": 664,
+    "class": "hihat_pedal",
+    "prob": 0.6620659232139587,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 8.092154195011338,
+    "frame": 697,
+    "class": "hihat_pedal",
+    "prob": 0.7816102504730225,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 8.359183673469389,
+    "frame": 720,
+    "class": "ride_bow",
+    "prob": 0.9030149579048157,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 8.440453514739229,
+    "frame": 727,
+    "class": "kick",
+    "prob": 0.9969083666801453,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 8.440453514739229,
+    "frame": 727,
+    "class": "crash",
+    "prob": 0.7968266010284424,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 8.452063492063493,
+    "frame": 728,
+    "class": "ride_bow",
+    "prob": 0.859132707118988,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 8.602993197278911,
+    "frame": 741,
+    "class": "ride_bow",
+    "prob": 0.8328429460525513,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 8.78875283446712,
+    "frame": 757,
+    "class": "ride_bow",
+    "prob": 0.8621559143066406,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 8.823582766439909,
+    "frame": 760,
+    "class": "hihat_closed",
+    "prob": 0.7654498815536499,
+    "threshold": 0.699999988079071
+  },
+  {
+    "time_sec": 8.870022675736962,
+    "frame": 764,
+    "class": "ride_bow",
+    "prob": 0.8384557962417603,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 9.125442176870749,
+    "frame": 786,
+    "class": "ride_bow",
+    "prob": 0.8849471807479858,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 9.183492063492064,
+    "frame": 791,
+    "class": "ride_bell",
+    "prob": 0.7800916433334351,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 9.195102040816327,
+    "frame": 792,
+    "class": "splash_cymbal",
+    "prob": 0.7862666249275208,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 9.206712018140589,
+    "frame": 793,
+    "class": "snare",
+    "prob": 0.9653807878494263,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 9.241541950113378,
+    "frame": 796,
+    "class": "kick",
+    "prob": 0.9276381134986877,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 9.961360544217687,
+    "frame": 858,
+    "class": "ride_bow",
+    "prob": 0.9755844473838806,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 9.984580498866213,
+    "frame": 860,
+    "class": "crash",
+    "prob": 0.8922605514526367,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 9.996190476190476,
+    "frame": 861,
+    "class": "kick",
+    "prob": 0.9999352693557739,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 10.031020408163265,
+    "frame": 864,
+    "class": "ride_bow",
+    "prob": 0.8023618459701538,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 10.181950113378685,
+    "frame": 877,
+    "class": "ride_bow",
+    "prob": 0.8906190395355225,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 10.32126984126984,
+    "frame": 889,
+    "class": "ride_bow",
+    "prob": 0.9615821242332458,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 10.39092970521542,
+    "frame": 895,
+    "class": "ride_bow",
+    "prob": 0.957365870475769,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 10.599909297052154,
+    "frame": 913,
+    "class": "ride_bow",
+    "prob": 0.8849844336509705,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 10.681179138321996,
+    "frame": 920,
+    "class": "ride_bow",
+    "prob": 0.9000841379165649,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 10.716009070294785,
+    "frame": 923,
+    "class": "kick",
+    "prob": 0.8969944715499878,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 10.7740589569161,
+    "frame": 928,
+    "class": "snare",
+    "prob": 0.972364604473114,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 10.85532879818594,
+    "frame": 935,
+    "class": "snare",
+    "prob": 0.7985175848007202,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 11.459047619047618,
+    "frame": 987,
+    "class": "ride_bow",
+    "prob": 0.8479394912719727,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 11.505487528344672,
+    "frame": 991,
+    "class": "kick",
+    "prob": 0.9992303848266602,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 11.505487528344672,
+    "frame": 991,
+    "class": "crash",
+    "prob": 0.7593416571617126,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 11.853786848072563,
+    "frame": 1021,
+    "class": "ride_bow",
+    "prob": 0.9166213870048523,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 11.877006802721088,
+    "frame": 1023,
+    "class": "hihat_pedal",
+    "prob": 0.7409477233886719,
+    "threshold": 0.6499999761581421
+  },
+  {
+    "time_sec": 12.236916099773243,
+    "frame": 1054,
+    "class": "snare",
+    "prob": 0.9826966524124146,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 12.26013605442177,
+    "frame": 1056,
+    "class": "splash_cymbal",
+    "prob": 0.7836188077926636,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 12.294965986394558,
+    "frame": 1059,
+    "class": "kick",
+    "prob": 0.8992512822151184,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 12.318185941043083,
+    "frame": 1061,
+    "class": "snare",
+    "prob": 0.989437460899353,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 12.399455782312925,
+    "frame": 1068,
+    "class": "snare",
+    "prob": 0.7637287974357605,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 12.49233560090703,
+    "frame": 1076,
+    "class": "snare",
+    "prob": 0.8663893938064575,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 13.038004535147392,
+    "frame": 1123,
+    "class": "kick",
+    "prob": 0.9998012185096741,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 13.049614512471654,
+    "frame": 1124,
+    "class": "ride_bow",
+    "prob": 0.8171564936637878,
+    "threshold": 0.800000011920929
+  },
+  {
+    "time_sec": 13.084444444444445,
+    "frame": 1127,
+    "class": "splash_cymbal",
+    "prob": 0.9252697229385376,
+    "threshold": 0.75
+  },
+  {
+    "time_sec": 13.119274376417234,
+    "frame": 1130,
+    "class": "kick",
+    "prob": 0.9799486994743347,
+    "threshold": 0.8500000238418579
+  },
+  {
+    "time_sec": 13.397913832199546,
+    "frame": 1154,
+    "class": "hihat_closed",
+    "prob": 0.7153273224830627,
+    "threshold": 0.699999988079071
+  }
+]

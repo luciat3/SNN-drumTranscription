@@ -36,8 +36,6 @@ class SpecConfig:
     # Labeling strategy:
     # - "center": a window is positive for a class if an onset falls within
     #             [center_sec - radius, center_sec + radius]
-    # - "window": a window is positive for a class if an onset falls within
-    #             [start_sec, end_sec]
     label_mode: str = "center"
 
 
@@ -120,6 +118,18 @@ def compute_log_spectrogram(y: np.ndarray, cfg) -> np.ndarray:
     S = np.abs(D) ** 2
     return np.log1p(S).astype(np.float32)
 
+def compute_mfcc(y: np.ndarray, cfg: SpecConfig) -> np.ndarray:
+    """
+    Computes MFCC features from audio signal.
+    """
+    X = librosa.feature.mfcc(
+        y=y,
+        sr=cfg.sr,
+        n_mfcc=cfg.n_mfcc,
+        n_fft=cfg.n_fft,
+        hop_length=cfg.hop_length,
+    )
+    return X.astype(np.float32)  # (n_mfcc, T)
 
 
 def onsets_to_frame_targets(onsets_sec: Dict[str, List], T: int, cfg: SpecConfig) -> np.ndarray:

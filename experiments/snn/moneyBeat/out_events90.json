@@ -1,0 +1,248 @@
+[
+  {
+    "time_sec": 0.5572789115646258,
+    "frame": 48,
+    "class": "kick",
+    "prob": 0.9125761389732361
+  },
+  {
+    "time_sec": 1.207437641723356,
+    "frame": 104,
+    "class": "kick",
+    "prob": 0.9255734086036682
+  },
+  {
+    "time_sec": 1.2190476190476192,
+    "frame": 105,
+    "class": "chinese_cymbal",
+    "prob": 0.9371697306632996
+  },
+  {
+    "time_sec": 1.2190476190476192,
+    "frame": 105,
+    "class": "splash_cymbal",
+    "prob": 0.954700231552124
+  },
+  {
+    "time_sec": 1.230657596371882,
+    "frame": 106,
+    "class": "snare",
+    "prob": 0.9916492700576782
+  },
+  {
+    "time_sec": 1.8343764172335602,
+    "frame": 158,
+    "class": "kick",
+    "prob": 0.9067339301109314
+  },
+  {
+    "time_sec": 2.449705215419501,
+    "frame": 211,
+    "class": "kick",
+    "prob": 0.920396625995636
+  },
+  {
+    "time_sec": 2.48453514739229,
+    "frame": 214,
+    "class": "snare",
+    "prob": 0.9918031096458435
+  },
+  {
+    "time_sec": 2.4961451247165534,
+    "frame": 215,
+    "class": "splash_cymbal",
+    "prob": 0.9153997302055359
+  },
+  {
+    "time_sec": 3.0998639455782313,
+    "frame": 267,
+    "class": "snare",
+    "prob": 0.94303959608078
+  },
+  {
+    "time_sec": 3.7268027210884354,
+    "frame": 321,
+    "class": "kick",
+    "prob": 0.9305397272109985
+  },
+  {
+    "time_sec": 3.7500226757369615,
+    "frame": 323,
+    "class": "snare",
+    "prob": 0.993251621723175
+  },
+  {
+    "time_sec": 3.7500226757369615,
+    "frame": 323,
+    "class": "chinese_cymbal",
+    "prob": 0.9137059450149536
+  },
+  {
+    "time_sec": 3.7500226757369615,
+    "frame": 323,
+    "class": "splash_cymbal",
+    "prob": 0.9411460757255554
+  },
+  {
+    "time_sec": 4.4117913832199545,
+    "frame": 380,
+    "class": "snare",
+    "prob": 0.9356226325035095
+  },
+  {
+    "time_sec": 5.050340136054421,
+    "frame": 435,
+    "class": "kick",
+    "prob": 0.9228404760360718
+  },
+  {
+    "time_sec": 5.073560090702948,
+    "frame": 437,
+    "class": "chinese_cymbal",
+    "prob": 0.9007984399795532
+  },
+  {
+    "time_sec": 5.073560090702948,
+    "frame": 437,
+    "class": "splash_cymbal",
+    "prob": 0.9426357746124268
+  },
+  {
+    "time_sec": 5.12,
+    "frame": 441,
+    "class": "snare",
+    "prob": 0.9883967041969299
+  },
+  {
+    "time_sec": 5.746938775510204,
+    "frame": 495,
+    "class": "kick",
+    "prob": 0.9138575196266174
+  },
+  {
+    "time_sec": 6.362267573696145,
+    "frame": 548,
+    "class": "chinese_cymbal",
+    "prob": 0.9056114554405212
+  },
+  {
+    "time_sec": 6.373877551020408,
+    "frame": 549,
+    "class": "snare",
+    "prob": 0.9865372180938721
+  },
+  {
+    "time_sec": 6.373877551020408,
+    "frame": 549,
+    "class": "splash_cymbal",
+    "prob": 0.9196467995643616
+  },
+  {
+    "time_sec": 6.3854875283446715,
+    "frame": 550,
+    "class": "kick",
+    "prob": 0.9294588565826416
+  },
+  {
+    "time_sec": 6.977596371882086,
+    "frame": 601,
+    "class": "snare",
+    "prob": 0.9233358502388
+  },
+  {
+    "time_sec": 7.6741950113378685,
+    "frame": 661,
+    "class": "snare",
+    "prob": 0.9779756665229797
+  },
+  {
+    "time_sec": 7.685804988662132,
+    "frame": 662,
+    "class": "kick",
+    "prob": 0.9029619097709656
+  },
+  {
+    "time_sec": 7.685804988662132,
+    "frame": 662,
+    "class": "chinese_cymbal",
+    "prob": 0.904691219329834
+  },
+  {
+    "time_sec": 7.720634920634921,
+    "frame": 665,
+    "class": "splash_cymbal",
+    "prob": 0.93408203125
+  },
+  {
+    "time_sec": 7.732244897959184,
+    "frame": 666,
+    "class": "snare",
+    "prob": 0.9933896064758301
+  },
+  {
+    "time_sec": 8.347573696145124,
+    "frame": 719,
+    "class": "snare",
+    "prob": 0.9307181239128113
+  },
+  {
+    "time_sec": 9.009342403628118,
+    "frame": 776,
+    "class": "snare",
+    "prob": 0.97567218542099
+  },
+  {
+    "time_sec": 9.02095238095238,
+    "frame": 777,
+    "class": "kick",
+    "prob": 0.9555895924568176
+  },
+  {
+    "time_sec": 9.02095238095238,
+    "frame": 777,
+    "class": "chinese_cymbal",
+    "prob": 0.9233317971229553
+  },
+  {
+    "time_sec": 9.02095238095238,
+    "frame": 777,
+    "class": "splash_cymbal",
+    "prob": 0.9503092765808105
+  },
+  {
+    "time_sec": 9.067392290249433,
+    "frame": 781,
+    "class": "snare",
+    "prob": 0.9906435608863831
+  },
+  {
+    "time_sec": 9.682721088435374,
+    "frame": 834,
+    "class": "snare",
+    "prob": 0.9250125885009766
+  },
+  {
+    "time_sec": 10.367709750566894,
+    "frame": 893,
+    "class": "kick",
+    "prob": 0.9140552878379822
+  },
+  {
+    "time_sec": 10.367709750566894,
+    "frame": 893,
+    "class": "chinese_cymbal",
+    "prob": 0.9043922424316406
+  },
+  {
+    "time_sec": 10.367709750566894,
+    "frame": 893,
+    "class": "splash_cymbal",
+    "prob": 0.951130747795105
+  },
+  {
+    "time_sec": 10.379319727891156,
+    "frame": 894,
+    "class": "snare",
+    "prob": 0.9937868118286133
+  }
+]

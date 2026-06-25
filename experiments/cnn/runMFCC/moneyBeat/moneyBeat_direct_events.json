@@ -1,0 +1,266 @@
+[
+  {
+    "time_sec": 0.5456689342403628,
+    "frame": 47,
+    "class": "hihat_pedal",
+    "prob": 0.9222965240478516,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 0.5688888888888889,
+    "frame": 49,
+    "class": "kick",
+    "prob": 0.9999531507492065,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 1.195827664399093,
+    "frame": 103,
+    "class": "snare",
+    "prob": 0.9983181953430176,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 1.207437641723356,
+    "frame": 104,
+    "class": "hihat_closed",
+    "prob": 0.7546454668045044,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 1.8343764172335602,
+    "frame": 158,
+    "class": "kick",
+    "prob": 0.9999018311500549,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 1.8575963718820863,
+    "frame": 160,
+    "class": "hihat_closed",
+    "prob": 0.9552134275436401,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 2.461315192743764,
+    "frame": 212,
+    "class": "snare",
+    "prob": 0.9985188245773315,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 2.4729251700680273,
+    "frame": 213,
+    "class": "hihat_closed",
+    "prob": 0.6856401562690735,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 3.0882539682539685,
+    "frame": 266,
+    "class": "kick",
+    "prob": 0.9999271631240845,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 3.111473922902494,
+    "frame": 268,
+    "class": "hihat_closed",
+    "prob": 0.861889123916626,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 3.7384126984126986,
+    "frame": 322,
+    "class": "snare",
+    "prob": 0.998198390007019,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 3.7384126984126986,
+    "frame": 322,
+    "class": "hihat_closed",
+    "prob": 0.6896008849143982,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 4.388571428571429,
+    "frame": 378,
+    "class": "kick",
+    "prob": 0.9998943209648132,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 4.4117913832199545,
+    "frame": 380,
+    "class": "hihat_closed",
+    "prob": 0.8852503299713135,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 5.050340136054421,
+    "frame": 435,
+    "class": "ride_bow",
+    "prob": 0.5939685106277466,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 5.073560090702948,
+    "frame": 437,
+    "class": "snare",
+    "prob": 0.9986953139305115,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 5.712108843537415,
+    "frame": 492,
+    "class": "kick",
+    "prob": 0.999931812286377,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 5.723718820861678,
+    "frame": 493,
+    "class": "hihat_closed",
+    "prob": 0.9339380264282227,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 6.350657596371882,
+    "frame": 547,
+    "class": "snare",
+    "prob": 0.9984698295593262,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 6.362267573696145,
+    "frame": 548,
+    "class": "hihat_closed",
+    "prob": 0.7640473246574402,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 6.989206349206349,
+    "frame": 602,
+    "class": "kick",
+    "prob": 0.9998990297317505,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 7.000816326530612,
+    "frame": 603,
+    "class": "hihat_closed",
+    "prob": 0.9433764219284058,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 7.697414965986394,
+    "frame": 663,
+    "class": "snare",
+    "prob": 0.9986640214920044,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 8.335963718820862,
+    "frame": 718,
+    "class": "kick",
+    "prob": 0.9999343156814575,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 8.347573696145124,
+    "frame": 719,
+    "class": "hihat_closed",
+    "prob": 0.8643582463264465,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 8.672653061224489,
+    "frame": 747,
+    "class": "ride_bow",
+    "prob": 0.6184963583946228,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 9.032562358276644,
+    "frame": 778,
+    "class": "snare",
+    "prob": 0.9982406497001648,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 9.659501133786849,
+    "frame": 832,
+    "class": "kick",
+    "prob": 0.9999405145645142,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 9.682721088435374,
+    "frame": 834,
+    "class": "hihat_closed",
+    "prob": 0.909335196018219,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 10.32126984126984,
+    "frame": 889,
+    "class": "ride_bow",
+    "prob": 0.6368849277496338,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  },
+  {
+    "time_sec": 10.344489795918367,
+    "frame": 891,
+    "class": "snare",
+    "prob": 0.9988690614700317,
+    "threshold": 0.5,
+    "min_dist_ms": 180.0
+  },
+  {
+    "time_sec": 10.983038548752834,
+    "frame": 946,
+    "class": "kick",
+    "prob": 0.9999709129333496,
+    "threshold": 0.5,
+    "min_dist_ms": 120.0
+  },
+  {
+    "time_sec": 11.00625850340136,
+    "frame": 948,
+    "class": "hihat_closed",
+    "prob": 0.9370190501213074,
+    "threshold": 0.5,
+    "min_dist_ms": 90.0
+  }
+]

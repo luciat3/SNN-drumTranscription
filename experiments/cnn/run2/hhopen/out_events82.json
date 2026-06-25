@@ -1,0 +1,104 @@
+[
+  {
+    "time_sec": 0.5688888888888889,
+    "frame": 49,
+    "class": "hihat_open",
+    "prob": 0.9677473306655884
+  },
+  {
+    "time_sec": 0.592108843537415,
+    "frame": 51,
+    "class": "ride_bow",
+    "prob": 0.9900023937225342
+  },
+  {
+    "time_sec": 1.1609977324263039,
+    "frame": 100,
+    "class": "hihat_open",
+    "prob": 0.911520779132843
+  },
+  {
+    "time_sec": 2.507755102040816,
+    "frame": 216,
+    "class": "hihat_open",
+    "prob": 0.8822510242462158
+  },
+  {
+    "time_sec": 3.1463038548752835,
+    "frame": 271,
+    "class": "hihat_open",
+    "prob": 0.8519181609153748
+  },
+  {
+    "time_sec": 3.7848526077097504,
+    "frame": 326,
+    "class": "splash_cymbal",
+    "prob": 0.8357629776000977
+  },
+  {
+    "time_sec": 3.81968253968254,
+    "frame": 329,
+    "class": "hihat_open",
+    "prob": 0.8574963212013245
+  },
+  {
+    "time_sec": 5.154829931972789,
+    "frame": 444,
+    "class": "hihat_open",
+    "prob": 0.8887059092521667
+  },
+  {
+    "time_sec": 5.7817687074829935,
+    "frame": 498,
+    "class": "splash_cymbal",
+    "prob": 0.8290706276893616
+  },
+  {
+    "time_sec": 5.804988662131519,
+    "frame": 500,
+    "class": "hihat_open",
+    "prob": 0.8636613488197327
+  },
+  {
+    "time_sec": 6.466757369614513,
+    "frame": 557,
+    "class": "hihat_open",
+    "prob": 0.8660849928855896
+  },
+  {
+    "time_sec": 7.128526077097506,
+    "frame": 614,
+    "class": "hihat_open",
+    "prob": 0.8709293603897095
+  },
+  {
+    "time_sec": 7.801904761904762,
+    "frame": 672,
+    "class": "hihat_open",
+    "prob": 0.8337322473526001
+  },
+  {
+    "time_sec": 8.452063492063493,
+    "frame": 728,
+    "class": "hihat_open",
+    "prob": 0.8713163137435913
+  },
+  {
+    "time_sec": 9.113832199546485,
+    "frame": 785,
+    "class": "hihat_open",
+    "prob": 0.8221679925918579
+  },
+  {
+    "time_sec": 9.787210884353742,
+    "frame": 843,
+    "class": "hihat_open",
+    "prob": 0.8627610206604004
+  },
+  {
+    "time_sec": 10.460589569160998,
+    "frame": 901,
+    "class": "hihat_open",
+    "prob": 0.9092762470245361
+  }
+]
